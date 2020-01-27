@@ -9,12 +9,13 @@ from api import api
 
 from auth import authenticate, retrieve_user
 
+current_api_version = 1
 app = Sanic(__file__)
 
-app.blueprint(api, version=1)
+app.blueprint(api, version=current_api_version)
 
 initialize(app, authenticate=authenticate,
-           retrieve_user=retrieve_user, url_prefix='/v1/api/auth')
+           retrieve_user=retrieve_user, url_prefix=f'/v{current_api_version}/api/auth')
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8888)
